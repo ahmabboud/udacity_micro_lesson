@@ -5,7 +5,8 @@ transformers==4.48.0
 
 # # Hugging Face Datasets library
 datasets==3.2.0
-
+peft==0.14.0
+matplotlib==3.10.0
 # # Optional dependencies
 # numpy>=1.21.6
 # scipy>=1.7.3
