@@ -1,123 +1,92 @@
-Here is the updated **README.md** file with instructions for creating and activating a virtual environment before starting the lesson:
+# Parameter-Efficient Fine-Tuning with LoRA
 
----
+## Overview
 
-# Fine-Tuning GPT-2 with Data Parallelism
+This README provides guidance on using the accompanying Jupyter notebook, which demonstrates **LoRA (Low-Rank Adaptation)** for fine-tuning a pretrained GPT-2 model efficiently. LoRA reduces memory usage and computational costs by freezing most model parameters and training small, low-rank matrices.
 
-This repository contains the materials for a micro-lesson on **Fine-Tuning GPT-2 with Data Parallelism**. The lesson demonstrates how to use PyTorch's `DataParallel` to distribute training tasks across multiple GPUs for faster and more efficient training.
+## Introduction
 
----
+Fine-tuning large language models (LLMs) can be computationally expensive and memory-intensive, especially for users with limited hardware resources. **LoRA (Low-Rank Adaptation)** provides an efficient solution by freezing most of the model's parameters and introducing trainable, low-rank matrices to adapt the model for new tasks.
 
-## Lesson Overview
+This notebook will guide you through:
+- Understanding how LoRA modifies the model architecture.
+- Fine-tuning a GPT-2 model using LoRA.
+- Tokenizing and preprocessing datasets for efficient training.
+- Visualizing the training loss to evaluate performance.
 
-This micro-lesson is part of the "Foundations of Large-Scale Machine Learning" course. It focuses on teaching learners how to fine-tune a pretrained GPT-2 model using data parallelism on a small dataset.
+## Prerequisites
 
-### Learning Objectives
-By completing this lesson, learners will:
-1. Understand the concept of data parallelism and its role in distributed training.
-2. Use PyTorch's `DataParallel` to fine-tune a pretrained GPT-2 model.
+Before running the notebook, ensure that you have:
+- A basic understanding of machine learning concepts.
+- Familiarity with the **transformers** library by Hugging Face.
+- Experience with large language models and fine-tuning techniques.
 
-### Prerequisites
-- Python 3.x installed on your machine.
-- Familiarity with PyTorch and Hugging Face's `transformers` library.
-- Basic understanding of machine learning concepts.
+Additionally, access to a GPU-enabled environment is recommended, as fine-tuning large models requires substantial computational resources.
 
----
+## Installation
 
-## Repository Contents
+To install the necessary dependencies, run the following command:
 
-1. **Jupyter Notebook**: `fine_tune_gpt2_data_parallelism.ipynb`
-   - A step-by-step guide to fine-tuning GPT-2 using data parallelism.
-2. **Requirements File**: `requirements.txt`
-   - Lists all the dependencies required to run the notebook.
-3. **Hands-On Exercise**
-   - Instructions for learners to practice fine-tuning GPT-2 using data parallelism.
-4. **Quiz Question**
-   - A multiple-choice quiz question to test understanding of data parallelism.
-
----
-
-## Getting Started
-
-### 1. Create and Activate a Virtual Environment
-It is highly recommended to use a virtual environment to avoid conflicts between dependencies. Follow these steps:
-
-#### For Windows:
 ```bash
-python -m venv gpt2_env
-gpt2_env\Scripts\activate
+pip install transformers datasets peft matplotlib
 ```
 
-#### For macOS/Linux:
+## Usage Guide
+
+Follow these steps to run the notebook:
+
+### Step 1: Load Pretrained GPT-2 Model and Tokenizer
+- The notebook loads the GPT-2 model and tokenizer.
+- Padding token is set to the end-of-sequence token.
+
+### Step 2: Apply LoRA Configuration to the Model
+- LoRA configuration is defined with key parameters such as low-rank dimension and dropout rate.
+- The LoRA model is applied to the base GPT-2 model.
+
+### Step 3: Load and Tokenize Dataset
+- The notebook uses the WikiText dataset.
+- Tokenization is applied with padding and truncation.
+- The dataset is converted into PyTorch tensors.
+
+### Step 4: Fine-Tune the Model
+- A PyTorch DataLoader is created for batching.
+- The AdamW optimizer is used for training.
+- Training loss is visualized over time.
+
+## Common Mistakes
+
+- Ensure that all required libraries and dependencies are installed before running the notebook.
+- Verify that a GPU is available to speed up training.
+
+## Best Practices
+
+- Create a separate virtual environment for this lab to avoid conflicts with other projects:
+
 ```bash
-python3 -m venv gpt2_env
-source gpt2_env/bin/activate
+python -m venv lora_env
+source lora_env/bin/activate  # On macOS/Linux
+lora_env\Scripts\activate  # On Windows
 ```
 
-Once activated, your terminal should show the virtual environment name (e.g., `(gpt2_env)`).
+## Output
 
-### 2. Clone the Repository
-Clone this repository to your local machine:
-```bash
-git clone https://github.com/ahmabboud/udacity_micro_lesson.git
-cd udacity_micro_lesson
-```
+Upon successful completion of the notebook, you should:
+- See a confirmation of successful model loading and dataset tokenization.
+- Observe training loss values reducing over time.
+- View a loss plot representing the fine-tuning process.
 
-### 3. Install Dependencies
-Use the `requirements.txt` file to install the required Python libraries:
-```bash
-pip install -r requirements.txt
-```
+## Troubleshooting
 
-### 4. Open the Jupyter Notebook
-Launch Jupyter Notebook and open `fine_tune_gpt2_data_parallelism.ipynb`:
-```bash
-jupyter notebook fine_tune_gpt2_data_parallelism.ipynb
-```
+If you encounter issues, consider:
+- Reinstalling dependencies using `pip install --upgrade <package_name>`.
+- Ensuring your GPU drivers and CUDA installation are correctly configured.
 
----
+## Additional Resources
 
-## Hands-On Exercise
-
-The hands-on exercise involves:
-1. Loading a pretrained GPT-2 model.
-2. Tokenizing a small dataset (WikiText-2).
-3. Using PyTorch's `DataParallel` to distribute training across GPUs.
-
-Follow the steps in the notebook to complete this exercise.
-
----
-
-## Quiz Question
-
-**What is the main advantage of using data parallelism in distributed training?**
-
-1. To split the input data across multiple GPUs for faster processing.
-2. To reduce the size of the model to fit into a single GPU's memory.
-3. To allow different GPUs to train separate models simultaneously.
-4. To synchronize gradients during backpropagation across GPUs.
-
-Correct Answer: Option 1  
-Feedback: Data parallelism splits input data across GPUs, enabling faster training by processing smaller chunks in parallel.
-
----
-
-## Next Steps
-
-After completing this lesson:
-1. Experiment with different datasets and prompts.
-2. Adjust hyperparameters like learning rate and batch size.
-3. Explore other distributed training techniques like model parallelism.
-
----
+- [Hugging Face Transformers Documentation](https://huggingface.co/docs/transformers/)
+- [LoRA Paper](https://arxiv.org/abs/2106.09685)
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+This project is licensed under the MIT License.
 
----
-
-This updated README ensures that students create and activate a virtual environment before installing dependencies, reducing potential conflicts between packages!
-
-Citations:
-[1] https://ppl-ai-file-upload.s3.amazonaws.com/web/direct-files/collection_604ce3e6-4019-44ab-8690-ee9d3365a30c/10eded5c-935e-4c7c-9104-22d4cb70de68/Teaching-Sample-Exercise-v2.0.docx

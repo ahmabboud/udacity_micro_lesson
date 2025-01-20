@@ -1,9 +1,0 @@
-{
-    "ImageId": "ami-0c55b159cbfafe1f0", 
-    "InstanceType": "g4dn.12xlarge",
-    "KeyName": "your-key-pair-name",
-    "SecurityGroups": ["your-security-group-name"],
-    "SubnetId": "subnet-0123456789abcdef0",
-    "AssociatePublicIpAddress": true
-  }
-  
